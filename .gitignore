@@ -1,0 +1,42 @@
+# Dependencies
+**/node_modules
+node_modules/
+
+# Production builds
+**/dist
+**/build
+dist/
+build/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Temporary debug scripts
+client/debug_chrome.js
+client/chrome_run.log
+client/build_output.log
+client/chrome-profile/
