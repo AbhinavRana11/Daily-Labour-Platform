@@ -13,18 +13,45 @@ export const initSocket = (httpServer) => {
     io.on("connection", (socket) => {
         console.log("New Client Connected:", socket.id);
 
-        // Join a room based on user ID (for private updates)
+        // Join a room based on user ID (for private updates, like booking status)
         socket.on("join_room", (userId) => {
             if (userId) {
                 socket.join(userId);
-                console.log(`User ${userId} joined room ${userId}`);
+                console.log(`User ${userId} joined private room ${userId}`);
             }
         });
 
-        // Chat Events
+        // 1. Join Chat Room
+        socket.on("joinRoom", (chatId) => {
+            if (chatId) {
+                socket.join(chatId);
+                console.log(`Client ${socket.id} joined chat room ${chatId}`);
+            }
+        });
+
+        // 2. Send Message Room Broadcast
+        socket.on("sendMessage", (messageData) => {
+            const { chat } = messageData;
+            io.to(chat).emit("receiveMessage", messageData);
+        });
+
+        // 3. Typing Indicators
+        socket.on("typing", ({ chatId, userId, userName }) => {
+            socket.to(chatId).emit("userTyping", { userId, userName, isTyping: true });
+        });
+
+        socket.on("stopTyping", ({ chatId, userId }) => {
+            socket.to(chatId).emit("userTyping", { userId, isTyping: false });
+        });
+
+        // 4. Read Receipts
+        socket.on("markRead", ({ chatId, userId }) => {
+            socket.to(chatId).emit("messageRead", { chatId, userId });
+        });
+
+        // Legacy/Generic Chat Events support
         socket.on("send_message", ({ to, message, from }) => {
             console.log(`Message from ${from} to ${to}: ${message}`);
-            // Send to recipient
             io.to(to).emit("receive_message", {
                 from,
                 message,

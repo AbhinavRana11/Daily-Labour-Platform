@@ -15,10 +15,16 @@ export const AuthProvider = ({ children }) => {
         const storedUser = localStorage.getItem('user');
         const token = localStorage.getItem('token');
 
-        if (token && storedUser) {
-            const userData = JSON.parse(storedUser);
-            setUser(userData);
-            connectSocket(userData._id);
+        try {
+            if (token && storedUser) {
+                const userData = JSON.parse(storedUser);
+                setUser(userData);
+                connectSocket(userData._id);
+            }
+        } catch (error) {
+            console.error("Error parsing stored user from localStorage:", error);
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
         }
         setLoading(false);
     }, []);
@@ -36,6 +42,13 @@ export const AuthProvider = ({ children }) => {
         connectSocket(userData._id);
     };
 
+    const updateUser = (newUserData) => {
+        const storedUser = localStorage.getItem('user');
+        const updated = storedUser ? { ...JSON.parse(storedUser), ...newUserData } : newUserData;
+        localStorage.setItem('user', JSON.stringify(updated));
+        setUser(updated);
+    };
+
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -44,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading, socket }}>
+        <AuthContext.Provider value={{ user, login, updateUser, logout, loading, socket }}>
             {!loading && children}
         </AuthContext.Provider>
     );

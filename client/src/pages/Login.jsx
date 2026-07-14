@@ -6,7 +6,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 
 const Login = () => {
-    const [role, setRole] = useState('user'); // 'user' or 'labour'
+    const [role, setRole] = useState('customer'); // 'customer' or 'labour'
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

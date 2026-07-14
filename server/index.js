@@ -22,9 +22,21 @@ mongoose
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.log(err));
 
-// Routes
+import adminRouter from "./routes/admin.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
+import trackingRoutes from "./routes/tracking.js";
+import requestRoutes from "./routes/requests.js";
+import offerRoutes from "./routes/offers.js";
+
 app.use("/api/auth", authRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/admin", adminRouter);
+app.use("/api/tracking", trackingRoutes);
+app.use("/api/requests", requestRoutes);
+app.use("/api/offers", offerRoutes);
 
 app.get("/", (req, res) => {
     res.send("API is running...");
