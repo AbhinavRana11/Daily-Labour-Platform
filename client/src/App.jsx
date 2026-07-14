@@ -24,6 +24,8 @@ import CustomerFavouriteWorkers from './pages/customer/FavouriteWorkers';
 import CustomerSavedAddresses from './pages/customer/SavedAddresses';
 import CustomerNotifications from './pages/customer/Notifications';
 import CustomerPayment from './pages/customer/Payment';
+import CustomerPostRequirement from './pages/customer/PostRequirement';
+import CustomerMyRequirements from './pages/customer/MyRequirements';
 
 // Worker Pages
 import WorkerDashboard from './pages/worker/Dashboard';
@@ -93,6 +95,8 @@ function AppContent() {
           <Route path="/customer/addresses" element={<ProtectedRoute allowedRoles={['customer', 'user']}><CustomerSavedAddresses /></ProtectedRoute>} />
           <Route path="/customer/notifications" element={<ProtectedRoute allowedRoles={['customer', 'user']}><CustomerNotifications /></ProtectedRoute>} />
           <Route path="/customer/payment" element={<ProtectedRoute allowedRoles={['customer', 'user']}><CustomerPayment /></ProtectedRoute>} />
+          <Route path="/customer/post-requirement" element={<ProtectedRoute allowedRoles={['customer', 'user']}><CustomerPostRequirement /></ProtectedRoute>} />
+          <Route path="/customer/my-requirements" element={<ProtectedRoute allowedRoles={['customer', 'user']}><CustomerMyRequirements /></ProtectedRoute>} />
 
           {/* Worker Protected Routes */}
           <Route path="/worker/dashboard" element={<ProtectedRoute allowedRoles={['labour']}><WorkerDashboard /></ProtectedRoute>} />

@@ -7,9 +7,12 @@ const CustomerNav = () => {
   const location = useLocation();
 
   const links = [
-    { to: '/customer/home', label: 'Dashboard' },
+    { to: '/customer/home', label: 'Home' },
     { to: '/customer/find', label: 'Find Labour' },
+    { to: '/customer/post-requirement', label: 'Post Requirement ⭐' },
     { to: '/customer/bookings', label: 'My Bookings' },
+    { to: '/customer/messages', label: 'Messages' },
+    { to: '/customer/profile', label: 'Profile' },
   ];
 
   return (

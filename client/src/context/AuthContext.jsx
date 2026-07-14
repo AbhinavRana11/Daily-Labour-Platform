@@ -30,7 +30,8 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const connectSocket = (userId) => {
-        const newSocket = io('http://localhost:5000');
+        const serverUrl = `http://${window.location.hostname}:5000`;
+        const newSocket = io(serverUrl);
         newSocket.emit('join_room', userId);
         setSocket(newSocket);
     };
