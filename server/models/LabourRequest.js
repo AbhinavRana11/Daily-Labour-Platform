@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid";
+import crypto from "crypto";
 
 const LabourRequestSchema = new mongoose.Schema(
     {
-        requestId: { type: String, unique: true, default: () => `REQ-${uuidv4().slice(0, 8).toUpperCase()}` },
+        requestId: { type: String, unique: true, default: () => `REQ-${crypto.randomUUID().slice(0, 8).toUpperCase()}` },
         customer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
         service: {
             type: String,
